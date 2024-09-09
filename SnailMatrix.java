@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class SnailMatrix {
+    public static List<Integer> snail(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        if (matrix.length == 0) {
+            return result; // Retorna lista vazia se a matriz estiver vazia.
+        }
+
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+
+        while (top <= bottom && left <= right) {
+            // Percorre a linha de cima da esquerda para a direita
+            for (int i = left; i <= right; i++) {
+                result.add(matrix[top][i]);
+            }
+            top++;
+
+            // Percorre a coluna da direita de cima para baixo
+            for (int i = top; i <= bottom; i++) {
+                result.add(matrix[i][right]);
+            }
+            right--;
+
+            if (top <= bottom) {
+                // Percorre a linha de baixo da direita para a esquerda
+                for (int i = right; i >= left; i--) {
+                    result.add(matrix[bottom][i]);
+                }
+                bottom--;
+            }
+
+            if (left <= right) {
+                // Percorre a coluna da esquerda de baixo para cima
+                for (int i = bottom; i >= top; i--) {
+                    result.add(matrix[i][left]);
+                }
+                left++;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        List<Integer> result = snail(matrix);
+        System.out.println(result);  // Saída esperada: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+    }
+}
